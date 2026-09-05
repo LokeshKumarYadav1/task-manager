@@ -28,7 +28,7 @@ public class TaskService {
 
     private final UserRepo userRepo;
 
-    private final TaskRedisService taskRedisService;
+   // private final TaskRedisService taskRedisService;
 
 
     private String getCurrentUsername() {
@@ -81,20 +81,20 @@ public class TaskService {
 
         String username = getCurrentUsername();
 
-        TaskResponseDTO cachedTask = taskRedisService.getTask(id, username);
-
-        if (cachedTask != null) {
-
-            return cachedTask;
-
-        }
+//        TaskResponseDTO cachedTask = taskRedisService.getTask(id, username);
+//
+//        if (cachedTask != null) {
+//
+//            return cachedTask;
+//
+//        }
 
         Task task = taskRepo.findByIdAndUserUsername(id, username)
                 .orElseThrow(()->new TaskNotFoundException("No task exists with this id"));
 
         TaskResponseDTO response = mapToDTO(task);
 
-        taskRedisService.saveTask(response, username);
+        //taskRedisService.saveTask(response, username);
 
         return response;
 
@@ -139,7 +139,7 @@ public class TaskService {
 
         TaskResponseDTO response = mapToDTO(saved);
 
-        taskRedisService.saveTask(response, username);
+        //taskRedisService.saveTask(response, username);
 
         return response;
 
@@ -158,7 +158,7 @@ public class TaskService {
 
         TaskResponseDTO response = mapToDTO(saved);
 
-        taskRedisService.saveTask(response, username);
+       // taskRedisService.saveTask(response, username);
 
         return response;
 
@@ -179,7 +179,7 @@ public class TaskService {
 
        taskRepo.deleteById(id);
 
-       taskRedisService.deleteTask(username, id);
+       //taskRedisService.deleteTask(username, id);
 
     }
 
