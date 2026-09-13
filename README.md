@@ -380,11 +380,15 @@ POST /user/signup
 ```
 Creates a new user account.
 
+<br>
+
 ### Login
 ```text
 POST /user/login
 ```
 Authenticates a user and returns a JWT.
+
+<br>
 
 ### Task APIs
 | Method | Endpoint	| Description |
@@ -397,6 +401,8 @@ Authenticates a user and returns a JWT.
 |DELETE | /task/{id} | Delete a completed task
 
 Task endpoints require authentication.
+
+<br>
 
 ### DTO Design
 
@@ -453,6 +459,8 @@ Client
 
 This keeps the API representation separate from the persistence entities.
 
+<br>
+
 ### Redis Caching
 
 Redis is used to cache individual task responses.
@@ -499,6 +507,8 @@ UncompletedTaskDeletionException
 ```
 
 A centralized GlobalExceptionHandler handles application exceptions and converts them into appropriate HTTP responses.
+
+<br>
 
 ## Project Structure
 
@@ -581,6 +591,8 @@ The username and email are unique.
 
 Users implement Spring Security's UserDetails interface.
 
+<br>
+
 ### Task
 
 The Task entity contains:
@@ -594,6 +606,8 @@ completed
 user_id
 ```
 user_id is a foreign key representing the owner of the task.
+
+<br>
 
 ### Configuration
 The application uses different Spring profiles for different environments.
@@ -621,16 +635,20 @@ JWT_SECRET
 
 ### Prerequisites
 Install:
--- Java 21
--- MySQL
--- Maven
--- Redis
+
+- Java 21
+- MySQL
+- Maven
+- Redis
+
+<br>
 
 ### Create the Database
 Create a MySQL database:
 ```text
 CREATE DATABASE task_manager;
 ```
+<br>
 
 ### Configure Environment Variables
 Set:
@@ -640,6 +658,8 @@ JWT_SECRET=your_secret_key
 ```
 
 The JWT secret should be sufficiently long for the signing algorithm used by the application.
+
+<br>
 
 ### Run the application
 
@@ -677,6 +697,7 @@ Package
   v
 JAR
 ```
+<br>
 
 ### Runtime Stage
 The second stage uses a Java 21 JRE image and runs the generated JAR.
@@ -705,60 +726,67 @@ docker run -p 8080:8080 task-manager
 
 The Dockerfile makes the backend reproducible across environments that support Docker.
 
+<br>
+
 ### Security Considerations
--- The application implements:
--- BCrypt password hashing
--- JWT-based authentication
--- Stateless Spring Security sessions
--- Protected task endpoints
--- User-specific task ownership
--- Server-side ownership checks
--- Environment variables for sensitive configuration
--- DTOs to control API data exposure
+The application implements:
+
+- BCrypt password hashing
+- JWT-based authentication
+- Stateless Spring Security sessions
+- Protected task endpoints
+- User-specific task ownership
+- Server-side ownership checks
+- Environment variables for sensitive configuration
+- DTOs to control API data exposure
 
 The application does not rely on a client-provided user ID to determine task ownership.
 
 Instead, ownership is derived from the authenticated user.
+
+<br>
 
 ### What I Learned From This Project
 This project was built to understand how a real backend application works beyond simply creating CRUD endpoints.
 
 Key concepts implemented include:
 
--- Layered architecture
--- REST API development
--- Authentication
--- Authorization
--- JWT
--- Spring Security filter chain
--- SecurityContext
--- Password hashing
--- JPA entity relationships
--- Database foreign keys
--- DTO pattern
--- Repository pattern
--- Service layer business logic
--- Exception handling
--- Redis caching
--- Environment-based configuration
--- Docker containerization
--- Frontend-backend communication
+- Layered architecture
+- REST API development
+- Authentication
+- Authorization
+- JWT
+- Spring Security filter chain
+- SecurityContext
+- Password hashing
+- JPA entity relationships
+- Database foreign keys
+- DTO pattern
+- Repository pattern
+- Service layer business logic
+- Exception handling
+- Redis caching
+- Environment-based configuration
+- Docker containerization
+- Frontend-backend communication
+
+<br>
 
 ### Future Improvements
 
 Potential improvements include:
--- Automated unit and integration tests
--- API documentation using OpenAPI / Swagger
--- Refresh tokens
--- Pagination
--- Task priorities
--- Due dates
--- Search and filtering
--- Rate limiting
--- Improved cache invalidation strategies
--- CI/CD pipeline
--- Application monitoring
--- Production deployment
+- Automated unit and integration tests
+- API documentation using OpenAPI / Swagger
+- Refresh tokens
+- Pagination
+- Task priorities
+- Due dates
+- Search and filtering
+- Rate limiting
+- Improved cache invalidation strategies
+- CI/CD pipeline
+- Application monitoring
+- Production deployment
 
 ## Author
 ### Lokesh Yadav
